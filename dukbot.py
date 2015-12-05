@@ -10,7 +10,7 @@ def topreddit(message, sub='all'):
     submissions = reddit.get_subreddit(sub).get_hot(limit=5)
     res = ""
     for submission in submissions:
-	    res += submission.title + ":\n" +  submission.url + "\n"
+        res += submission.title + ":\n" +  submission.url + "\n"
     message.reply(res)
 
 @respond_to('talk')
