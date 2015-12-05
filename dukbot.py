@@ -1,14 +1,16 @@
 from slackbot.bot import respond_to
 from slackbot.bot import Bot
+from pprint import pprint
 
-@respond_to('topreddit')
-def help(message):
+@respond_to('topreddit$')
+@respond_to('topreddit (.*)')
+def topreddit(message, sub='all'):
     import praw
     reddit = praw.Reddit('dukslack')
-    submissions = reddit.get_subreddit('all').get_hot(limit=5)
+    submissions = reddit.get_subreddit(sub).get_hot(limit=5)
     res = ""
     for submission in submissions:
-	res += submission.title + ":\n" +  submission.url + "\n" 
+	    res += submission.title + ":\n" +  submission.url + "\n"
     message.reply(res)
 
 @respond_to('talk')
@@ -21,4 +23,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
